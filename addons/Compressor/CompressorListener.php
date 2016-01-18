@@ -18,7 +18,7 @@ class CompressorListener extends Listener
         $jpegtran = "jpegtran -optimize -progressive ";
         $optipng = "optipng ";
         $pngcrush = "pngcrush -ow ";
-        $pngcrush = "gifsicle -O5 ";
+        $gifsicle = "gifsicle -O5 ";
         $filetype = "";
 
         if ( strpos( $path, ".jpg" ) || strpos( $path, ".JPG" ) || strpos( $path, ".jpeg" ) || strpos( $path, ".JPEG" ) !== false ) {
