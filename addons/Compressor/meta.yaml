@@ -1,0 +1,9 @@
+name: Compressor
+version: 0.1
+description: >
+  Compressor keeps watch over your
+  Glide-generated images and compresses
+  them for maximum performance.
+url: http://dirigible.us/addons/compressor
+developer: Dirigible
+developer_url: dirigible.us
