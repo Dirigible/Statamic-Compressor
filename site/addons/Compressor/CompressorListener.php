@@ -62,6 +62,7 @@ class CompressorListener extends Listener
 
         if ( $filetype === "png" && $this->getConfig('optipng') ) {
             $temp = $path . ".png";
+            exec("cp " . $path . " " . $temp);
             exec($optipng . $temp);
             exec("mv " . $temp . " " . $path);
         }
