@@ -45,25 +45,25 @@ class CompressorListener extends Listener
             $temp = $path . ".jpg";
             exec("cp " . $path . " " . $temp);
             exec($jpegoptim . $temp);
-            exec("mv " . $path . " " . $temp);
+            exec("mv " . $temp . " " . $path);
         }
 
         if ( $filetype === "jpg" && $this->getConfig('jpegtran') ) {
             $temp = $path . ".jpg";
             exec($jpegtran . $path . " > " . $temp);
-            exec("mv " . $path . " " . $temp);
+            exec("mv " . $temp . " " . $path);
         }
 
         if ( $filetype === "png" && $this->getConfig('pngcrush') ) {
             $temp = $path . ".png";
             exec($pngcrush . $path . " " . $temp);
-            exec("mv " . $path . " " . $temp);
+            exec("mv " . $temp . " " . $path);
         }
 
         if ( $filetype === "png" && $this->getConfig('optipng') ) {
             $temp = $path . ".png";
             exec($optipng . $temp);
-            exec("mv " . $path . " " . $temp);
+            exec("mv " . $temp . " " . $path);
         }
 
         if ( $filetype === "gif" && $this->getConfig('gifsicle') ) {
