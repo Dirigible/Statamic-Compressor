@@ -16,12 +16,14 @@ class CompressorListener extends Listener
         // $params = ['w' => 100,   'h' => 200, etc]
 
         // The name of the bin with default flags to make them run
-        $jpegoptim = "jpegoptim -s ";
-        $jpegtran = "jpegtran -optimize -progressive ";
+        $jpegoptim = "jpegoptim --strip-all ";
+        $jpegtran = "jpegtran -copy none -optimize -progressive ";
         $optipng = "optipng ";
         $pngcrush = "pngcrush -ow ";
         $gifsicle = "gifsicle -O5 ";
         $filetype = "";
+
+        echo $this->getConfig('source');
 
         // Test the path for the file extensions and assign a filetype
         if ( strpos( $path, ".jpg" ) ||
@@ -39,29 +41,32 @@ class CompressorListener extends Listener
             $filetype = "gif";
         }
 
-        if ( $filetype === "jpg" ) {
-            // Copy the existing glide-generated image to a tempory location and
-            // add a file extension. Some of the libraries have trouble if the
-            // file extension is not in place.
+        if ( $filetype === "jpg" && $this->getConfig('jpegoptim') ) {
             $temp = $path . ".jpg";
             exec("cp " . $path . " " . $temp);
-
-            // Run jpegoptim and jpegtran
-            exec($jpegoptim . "-t " . $temp);
-            exec($jpegtran . $temp);
-
-            // Move the optimized file back to the original file location
-            // This gets rid of the extra file and should be a safe operation
-            // in case of the temp file never being generated.
-            exec("mv " . $temp . " " . $path);
+            exec($jpegoptim . $temp);
+            exec("mv " . $path . " " . $temp);
         }
-        if ( $filetype === "png" ) {
+
+        if ( $filetype === "jpg" && $this->getConfig('jpegtran') ) {
+            $temp = $path . ".jpg";
+            exec($jpegtran . $path . " > " . $temp);
+            exec("mv " . $path . " " . $temp);
+        }
+
+        if ( $filetype === "png" && $this->getConfig('pngcrush') ) {
             $temp = $path . ".png";
             exec($pngcrush . $path . " " . $temp);
-            exec($optipng . $temp);
-            exec("mv " . $temp . " " . $path);
+            exec("mv " . $path . " " . $temp);
         }
-        if ( $filetype === "gif" ) {
+
+        if ( $filetype === "png" && $this->getConfig('optipng') ) {
+            $temp = $path . ".png";
+            exec($optipng . $temp);
+            exec("mv " . $path . " " . $temp);
+        }
+
+        if ( $filetype === "gif" && $this->getConfig('gifsicle') ) {
             $temp = $path . ".gif";
             exec($gifsicle . $path . " > " . $temp);
             exec("mv " . $temp . " " . $path);
