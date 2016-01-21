@@ -23,8 +23,6 @@ class CompressorListener extends Listener
         $gifsicle = "gifsicle -O5 ";
         $filetype = "";
 
-        echo $this->getConfig('source');
-
         // Test the path for the file extensions and assign a filetype
         if ( strpos( $path, ".jpg" ) ||
              strpos( $path, ".JPG" ) ||
