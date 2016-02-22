@@ -3,7 +3,7 @@ Automatically adds lossless image optimization to Statamic image cropping.
 
 ![](http://than.to/T1n7.png)
 
-_Here, `jpegtran` saves is able to losslessly trim 9.9% off the original's file size._
+_Here, `jpegtran` is able to losslessly trim 9.9% off the original's file size._
 
 -----
 
